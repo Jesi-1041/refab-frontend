@@ -387,7 +387,7 @@ nav ul li a {
       window.nextStep = nextStep;
       window.prevStep = prevStep;
       showStep(currentStep); // initialize
-  
+    }
       // Attach submit event to form
       const form = document.getElementById('custom-form');
       form.addEventListener('submit', submitCustomOrder);
@@ -424,6 +424,7 @@ nav ul li a {
         if (clothFile) {
           formData.append('clothUpload', clothFile);
         }
+      }
   // Price calculation logic
 let totalPrice = 0;
 
