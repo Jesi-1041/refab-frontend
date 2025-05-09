@@ -482,23 +482,35 @@ formData.append('price', totalPrice);
       window.location.href = 'cart.html';
 
         // Send data to backend
-        fetch('https://refab-backend.onrender.com/api/custom-order', {
-          method: 'POST',
-          body: formData,
-        })
-          .then(response => response.json())
-          .then(data => {
-            console.log(data);
-            document.getElementById('confirmationMessage').innerText = '✅ Order submitted successfully!';
-            document.getElementById('confirmationMessage').style.display = 'block';
-            form.reset(); // Optionally reset form
-          })
-          .catch(error => {
-            console.error('Error submitting order:', error);
-            alert('Something went wrong. Please try again.');
-          });
-      }
-    });
+// Send data to backend
+fetch('https://refab-backend.onrender.com/api/custom-order', {
+  method: 'POST',
+  body: formData,
+})
+  .then(response => {
+    // Check if the response status is OK (200 range)
+    if (!response.ok) {
+      throw new Error('Failed to submit the order, please try again later.');
+    }
+    return response.json(); // Parse the response as JSON
+  })
+  .then(data => {
+    console.log(data); // Log the data for debugging
+
+    // Check if the backend has sent a success message
+    if (data.message === 'Order received and saved!') {
+      document.getElementById('confirmationMessage').innerText = '✅ Order submitted successfully!';
+      document.getElementById('confirmationMessage').style.display = 'block';
+      form.reset(); // Optionally reset form
+    } else {
+      throw new Error('Unexpected response from the backend.');
+    }
+  })
+  .catch(error => {
+    console.error('Error submitting order:', error);
+    alert('Something went wrong. Please try again.');
+  });
+
   </script>
   
   
