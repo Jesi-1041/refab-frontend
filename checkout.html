@@ -106,7 +106,13 @@
   <footer>…</footer>
 
   <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2.6.4/dist/email.min.js"></script>
   <script>
+      // Initialize EmailJS
+  (function () {
+    emailjs.init("service_2pwos7k"); // Your actual service ID
+  })();
+
     // Toggle UPI fields based on payment method
     function toggleFields() {
       const selectedPaymentMethod = document.querySelector('input[name="payMethod"]:checked').value;
@@ -193,6 +199,7 @@
 
         // Show confirmation popup
         showOrderConfirmation(payload);
+        sendConfirmationEmail(payload);
 
         // Clear the cart after order
         localStorage.removeItem('cart');
@@ -221,6 +228,29 @@
       `;
       popup.style.display = 'block';
     }
+
+  // Send confirmation email via EmailJS
+  function sendConfirmationEmail(order) {
+    const emailParams = {
+      name: order.name,
+      order_id: order.order_id,
+      items_ordered: order.items,
+      total_amount: order.total,
+      payment_method: order.payment_method,
+      delivery_date: order.delivery_date,
+      to_email: order.email
+    };
+
+    emailjs.send('service_2pwos7k', 'template_cuh80pu', emailParams)
+      .then(response => {
+        console.log('✅ Email sent successfully!', response.status, response.text);
+      })
+      .catch(error => {
+        console.error('❌ Failed to send email:', error);
+        alert('Order placed, but failed to send confirmation email.');
+      });
+  }
+
   </script>
 </body>
 </html>
