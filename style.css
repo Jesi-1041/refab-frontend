@@ -1,0 +1,332 @@
+/* ───────────────────────────────────────────────────────────────────────────
+   style.css - Eco-Chic ReFab Theme
+──────────────────────────────────────────────────────────────────────────── */
+
+/* 1) Reset & Box Model */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* 2) Base Typography & Colors */
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #FFF9F0;      /* Soft Beige */
+    color: #333;
+    line-height: 1.6;
+  }
+  h1, h2, h3 {
+    font-family: 'Playfair Display', serif;
+    color: #7B1E1E;
+  }
+ 
+  
+  /* 4) Navbar */
+  header {
+    background-color: #698a28;      /* Fresh Green */  
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    padding: 5px 20px;  
+    overflow: visible; /* Allow content (logo) to exceed */
+    height: 80px;
+  }
+  
+.logo img {
+      padding-top: 15px;
+      height: 130px; /* Adjust as needed */
+      width: 130px;
+      position: relative;
+     
+      
+  }
+  nav {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  nav ul {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    padding: 0;
+    gap: 2rem;
+  }
+  
+  nav ul li {
+    margin-left: 30px;
+  }
+  
+  nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+  }
+  
+  /* 5) Hero Section */
+  .hero {
+    background-color: #C9E4CA;       /* Mint tea background */
+    text-align: center;
+    padding: 4rem 1rem;
+  }
+  .hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .hero p {
+    font-size: 1.1rem;
+    color: #2E3D24;                 /* Dark olive */
+    margin-bottom: 1.5rem;
+  }
+  
+  /* 6) Buttons */
+  .btn,
+  .bag button {
+    background-color: #7B1E1E; /* Red for action buttons */
+    color: #FFFFFF;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  .btn:hover,
+  .bag button:hover {
+    background-color: #a0340b; /* Darker red on hover */
+  }
+  
+  /* 7) Sections */
+  section {
+    padding: 3rem 1rem;
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  /* 8) Bags Grid */
+  .bags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+  .bag {
+    background-color: #FFFFFF;
+    border: 2px solid #446644;
+    border-radius: 10px;
+    width: 260px;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  .bag img {
+    max-width: 100%;
+    border-radius: 6px;
+  }
+  .bag h3 {
+    margin: 0.75rem 0 0.25rem;
+    font-size: 1.2rem;
+  }
+  .bag p {
+    margin: 0.25rem 0 0.75rem;
+    font-weight: bold;
+  }
+  
+  /* 9) Highlight Spans */
+  .highlight-green {
+    background-color: #A3C99A; /* Light sage */
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+  .highlight-red {
+    background-color: #E6A19A; /* Soft rose */
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+  
+  /* 10) Footer */
+  footer {
+    background-color: #698a28;      /* Deep Red Footer */
+    color: #FFF;
+    text-align: center;
+    padding: 1.5rem 1rem;
+  }
+  
+  /* 11) Mobile Responsive */
+  @media (max-width: 768px) {
+    nav ul {
+      flex-direction: column;
+      align-items: center;
+    }
+    .bags-container {
+      flex-direction: column;
+      align-items: center;
+    }
+    .bag {
+      width: 90%;
+    }
+    .btn,
+    .bag button {
+      width: 100%;
+      text-align: center;
+    }
+  }
+  
+  /* Form Styling */
+  form {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+  }
+  
+  form input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  form button {
+    background-color: #4CAF50; /* Green for form submit button */
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  form button:hover {
+    background-color: #45a049;
+  }
+  
+  h3 {
+    margin-top: 20px;
+  }
+  /* Customize Form Page Styling */
+
+/* Base Setup */
+body.customize-page {
+    background-color: #F4E5D4; /* soft cream background */
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+/* Header */
+header {
+  background-color: #698a28;      /* Fresh Green */
+  
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  padding: 5px 20px;
+  
+  overflow: visible; /* Allow content (logo) to exceed */
+  height: 80px;
+}
+
+header .logo {
+    font-size: 1.7rem;
+    font-weight: bold;
+}
+
+/* Form Container */
+.form-container {
+    width: 90%;
+    max-width: 700px;
+    background: #ffffff;
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Title */
+.form-container h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: #7B1E1E;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+/* Labels */
+label {
+    display: block;
+    font-weight: 600;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    color: #4EA88E; /* soft teal */
+}
+
+/* Inputs and Textareas */
+input, select, textarea {
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 15px;
+}
+
+/* Textarea special */
+textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* Submit Button */
+button.submit-btn {
+    background-color: #4EA88E; /* soft teal */
+    color: #fff;
+    padding: 12px;
+    border: none;
+    margin-top: 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    width: 100%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button.submit-btn:hover {
+    background-color: #3c8872;
+}
+
+/* Success Message Popup (optional) */
+.success-popup {
+    background: #C9E4CA; /* soft green */
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    color: #2E3D24;
+    margin-top: 20px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 600px) {
+    .form-container {
+        padding: 20px;
+    }
+}
+
+  
+    

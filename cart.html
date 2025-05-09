@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Your Cart – ReFab</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+
+  <style>
+     /* Base */
+    body#refab {
+      background: url('boutiquebg.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Poppins', sans-serif;
+      margin: 0; padding: 0;
+      color: #333;
+      height: 100vh;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Playfair Display', serif;
+      color: #556B2F; /* Deep Red for headings */
+    }
+
+    /* Navbar */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      padding: 5px 20px;
+      overflow: visible;
+      height: 80px;
+    }
+
+    .logo img {
+      padding-top: 30px;
+      height: 150px;
+      width: 150px;
+      position: relative;
+    }
+
+    nav {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      flex-direction: row;
+      margin: 0;
+      padding: 0;
+      gap: 2rem;
+    }
+
+    nav ul li {
+      margin-left: 0;
+    }
+
+    nav ul li a {
+      color: #FFF;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.4rem;
+    }
+
+    /* Cart Section */
+    .form-section {
+      padding: 2rem;
+      max-width: 900px;
+      margin: 2rem auto;
+      background-color: rgba(222, 205, 180, 0.85);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      color: #7B1E1E;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .cart-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 1rem;
+      background-color: rgba(222, 205, 180, 0.85);
+      margin-top: 1rem;
+    }
+
+    .cart-table th, .cart-table td {
+      border: 1px solid rgba(199, 181, 163, 0.4);
+      padding: 12px;
+      text-align: center;
+    }
+
+    .cart-table th {
+      background-color: rgba(213, 189, 175, 0.85);
+      color: #3B2E2A;
+      font-weight: bold;
+    }
+
+    .cart-table td {
+      background-color: rgba(239, 227, 216, 0.6);
+    }
+
+    .remove-btn {
+      background: transparent;
+      border: none;
+      color: black;
+      font-size: 18px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .remove-btn:hover {
+      transform: scale(1.2);
+      color: black;
+    }
+
+    #cart-total h3 {
+      margin-top: 1rem;
+      color: #3B2E2A;
+      text-align: left ;
+      font-size: 1.2rem;
+      padding: 10px;
+    }
+
+    .btn {
+      display: block;
+      margin: 2rem auto 0;
+      padding: 12px 24px;
+      background-color: #556B2F;
+      color: white;
+      border: none;
+      font-size: 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #5e1414;
+    }
+  </style>
+</head>
+<body id="refab">
+
+  <!-- Navbar -->
+  <header>
+    <div class="logo">
+      <img src="logo.png" alt="ReFab Logo">
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#about">About Us</a></li>
+        <li><a href="index.html#bags">Bags</a></li>
+        <li><a href="index.html#customize">Customize</a></li>
+        <li><a href="cart.html">Cart</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Cart Section -->
+  <section class="form-section">
+    <h2>YOUR CART</h2>
+    <div id="cart-items">
+      <p>Your cart is empty.</p>
+    </div>
+    <div id="cart-total"></div>
+
+    <!-- Proceed to Checkout -->
+    <button onclick="saveCartToBackend()" class="btn">
+      PROCEED TO CHECKOUT
+    </button>
+  </section>
+
+  <script>
+    // 🔐 Step 1: Generate or retrieve session ID
+    function getSessionId() {
+      let sessionId = localStorage.getItem('sessionId');
+      if (!sessionId) {
+        sessionId = crypto.randomUUID(); // Modern UUID (Chrome, Firefox, etc.)
+        localStorage.setItem('sessionId', sessionId);
+      }
+      return sessionId;
+    }
+  
+    // 🛒 Step 2: Display cart items from localStorage
+    function displayCart() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const itemsContainer = document.getElementById('cart-items');
+      const totalContainer = document.getElementById('cart-total');
+      itemsContainer.innerHTML = '';
+      let total = 0;
+  
+      if (!cart.length) {
+        itemsContainer.innerHTML = '<p>Your cart is empty.</p>';
+        totalContainer.textContent = '';
+        return;
+      }
+  
+      const table = document.createElement('table');
+      table.className = 'cart-table';
+      table.innerHTML = `
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          ${cart.map((item, index) => {
+            const title = item.name || item.bagType || 'Unnamed Item';
+            const qty = item.qty || 1;
+            const price = item.price || 0;
+            const itemTotal = qty * price;
+            total += itemTotal;
+            return `
+              <tr>
+                <td>${title}</td>
+                <td>${qty}</td>
+                <td>₹${price}</td>
+                <td>₹${itemTotal}</td>
+                <td><button class="remove-btn" data-index="${index}">❌</button></td>
+              </tr>
+            `;
+          }).join('')}
+        </tbody>
+      `;
+      itemsContainer.appendChild(table);
+      totalContainer.innerHTML = `<h3>Total: ₹${total}</h3>`;
+  
+      // 🗑️ Remove items
+      document.querySelectorAll('.remove-btn').forEach(button => {
+        button.addEventListener('click', function () {
+          const index = parseInt(this.getAttribute('data-index'));
+          cart.splice(index, 1);
+          localStorage.setItem('cart', JSON.stringify(cart));
+          displayCart();
+        });
+      });
+    }
+  
+    // 🚀 Step 3: Save cart to backend and go to checkout
+    async function saveCartToBackend() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const sessionId = getSessionId();
+  
+      if (!cart.length) {
+        alert("Your cart is empty.");
+        return;
+      }
+  
+      const cartItems = cart.map(item => ({
+        name: item.name || item.bagType || 'Unnamed Item',
+        price: item.price || 0,
+        qty: parseInt(item.qty) || 1
+      }));
+  
+      console.log("Sending cart to backend:", JSON.stringify({ sessionId, cartItems }, null, 2));
+  
+      try {
+        const response = await fetch('https://refab-backend.onrender.com/api/cart', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ sessionId, cartItems })
+        });
+  
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || 'Failed to save cart');
+        }
+  
+        const result = await response.json();
+        localStorage.setItem('sessionId', sessionId);
+        if (result.orderId) {
+          localStorage.setItem('orderId', result.orderId);
+        }
+  
+        // ✅ Redirect only after success
+        window.location.href = 'checkout.html';
+  
+      } catch (error) {
+        console.error('Error saving cart:', error);
+        alert('Error saving cart: ' + error.message);
+      }
+    }
+  
+    // 👁️ Step 4: Load cart when page is ready
+    window.addEventListener('DOMContentLoaded', displayCart);
+  </script>
+  
+  
+</body>
+</html>

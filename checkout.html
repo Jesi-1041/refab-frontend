@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Checkout – ReFab</title>
+  <link rel="stylesheet" href="checkout.css"/>
+  <link rel="icon" type="image/png" href="favicon.png">
+
+
+  
+  
+</head>
+<body id="refab">
+
+  <!-- Navbar -->
+  <header>
+    <div class="logo">
+      <img src="logo.png" alt="ReFab Logo">
+    </div>
+    <nav>…</nav>
+  </header>
+
+  <!-- Order Form -->
+  <section class="form-section">
+    <form id="order-form" onsubmit="processOrder(event)">
+      <h2>Place Your Order</h2>
+
+      <!-- 1) Customer Info -->
+      <label for="name">Full Name:</label>
+      <input type="text" id="name" name="name" required/>
+
+      <label for="email">Email Address:</label>
+      <input type="email" id="email" name="email" required/>
+
+      <!-- 2) Payment Method -->
+      <label>Payment Method:</label>
+      <div class="payment-options">
+        <input type="radio" id="cod" name="payMethod" value="COD" checked onclick="toggleFields()"/>
+        <label for="cod">Cash on Delivery</label>
+
+        <input type="radio" id="upi" name="payMethod" value="UPI" onclick="toggleFields()"/>
+        <label for="upi">UPI Payment</label>
+      </div>
+
+      <div id="upi-fields" class="payment-details" style="display:none;">
+        
+        
+        <div id="upi-qr-container" style="display: none; text-align: center; margin-top: 15px;">
+          <p><strong>Scan this UPI QR code to pay:</strong></p>
+          <img src="qrcode.jpg" alt="UPI QR Code" style="max-width: 250px; border: 1px solid #ccc; border-radius: 8px;">
+          <p><strong>UPI ID:</strong> jesithra.jeyakumar@okicici</p>
+          <div id="upi-screenshot-upload" style="display: none;">
+            <label for="upi-screenshot">Upload Payment Screenshot:</label>
+            <input type="file" id="upi-screenshot" name="upi_screenshot" accept="image/*" />
+          </div>
+          <label style="display: block; margin-top: 10px;">
+            <input type="checkbox" id="upi-paid-checkbox">
+            I have completed the UPI payment
+          </label>
+        </div>
+      </div>
+
+      <!-- 3) Shipping Address -->
+      <h3>Shipping Address</h3>
+      <label for="address">Address:</label>
+      <textarea id="address" name="address" required></textarea>
+
+      <label for="city">City:</label>
+      <input type="text" id="city" name="city" required/>
+
+      <label for="state">State:</label>
+      <input type="text" id="state" name="state" required/>
+
+      <label for="pincode">Pincode:</label>
+      <input type="text" id="pincode" name="pincode" required/>
+
+      <label for="delivery-date">Delivery Date:</label>
+      <input type="date" id="delivery-date" name="delivery_date" required/>
+
+      <!-- Hidden EmailJS fields -->
+      <input type="hidden" name="to_name" id="template-to_name"/>
+      <input type="hidden" name="to_email" id="template-to_email"/>
+      <input type="hidden" name="order_id" id="template-order_id"/>
+      <input type="hidden" name="items" id="template-items"/>
+      <input type="hidden" name="total" id="template-total"/>
+      <input type="hidden" name="payment_method" id="template-payment_method"/>
+      <input type="hidden" name="delivery_date" id="template-delivery_date"/>
+      <input type="hidden" name="address" id="template-address">
+
+      <button type="submit" class="btn">Place Order</button>
+    </form>
+  </section>
+
+  <!-- Confirmation Popup -->
+  <div id="order-confirmation" class="popup" style="display:none;">
+    <div class="popup-content">
+      <h2>Order Placed Successfully!</h2>
+      <p>A confirmation email has been sent.</p>
+      <div id="receipt"></div>
+      
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>…</footer>
+
+  <!-- Scripts -->
+  <script>
+    // Toggle UPI fields based on payment method
+    function toggleFields() {
+      const selectedPaymentMethod = document.querySelector('input[name="payMethod"]:checked').value;
+      const upiFields = document.getElementById('upi-fields');
+      const upiQrContainer = document.getElementById('upi-qr-container');
+      const upiScreenshotUpload = document.getElementById('upi-screenshot-upload');
+
+      // Show UPI fields if UPI is selected
+      upiFields.style.display = selectedPaymentMethod === 'UPI' ? 'block' : 'none';
+      upiQrContainer.style.display = selectedPaymentMethod === 'UPI' ? 'block' : 'none';
+      upiScreenshotUpload.style.display = selectedPaymentMethod === 'UPI' ? 'block' : 'none';
+    }
+
+    // Generate Order ID
+    function generateOrderId() {
+      return `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    }
+
+ 
+
+    // Process Order and handle form submission
+    async function processOrder(e) {
+      e.preventDefault();
+      const btn = document.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      btn.textContent = 'Placing Order…';
+
+      // Get form data
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const address = document.getElementById('address').value.trim();
+      const city = document.getElementById('city').value.trim();
+      const state = document.getElementById('state').value.trim();
+      const pincode = document.getElementById('pincode').value.trim();
+      const deliveryDate = document.getElementById('delivery-date').value.trim();
+
+      // Get cart data from localStorage
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const total = cart.reduce((s, i) => s + i.price * (i.qty || 1), 0);
+      const items = cart.map(i => `${i.name} (x${i.qty || 1})`).join(', ');
+      const orderId = generateOrderId();
+
+      // Validate form fields
+      if (!name || !email || !address || !city || !state || !pincode || !deliveryDate) {
+        alert('Please fill all required fields.');
+        btn.disabled = false;
+        btn.textContent = 'Place Order';
+        return;
+      }
+
+      const paymentMethod = document.querySelector('input[name="payMethod"]:checked').value;
+
+     
+
+      // Prepare payload for backend
+      const payload = {
+        order_id: orderId,
+        name,
+        email,
+        address,
+        city,
+        state,
+        pincode,
+        delivery_date: deliveryDate,
+        payment_method: paymentMethod,
+        total,
+        items,
+        timestamp: new Date().toLocaleString()
+      };
+
+      try {
+        // Send order data to backend
+        const resp = await fetch('https://refab-backend.onrender.com/api/checkout', {
+
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await resp.json();
+        if (!resp.ok) throw new Error(data.message || 'Failed to save order');
+   
+
+
+        // Show confirmation popup
+        showOrderConfirmation(payload);
+
+        // Clear the cart after order
+        localStorage.removeItem('cart');
+        btn.disabled = false;
+        btn.textContent = 'Place Order';
+
+      } catch (err) {
+        console.error('❌ backend error', err);
+        alert('Server error: ' + err.message);
+        btn.disabled = false;
+        btn.textContent = 'Place Order';
+      }
+    }
+
+    // Show order confirmation popup
+    function showOrderConfirmation(order) {
+      const popup = document.getElementById('order-confirmation');
+      const receipt = document.getElementById('receipt');
+
+      receipt.innerHTML = `
+        <p><strong>Order ID:</strong> ${order.order_id}</p>
+        <p><strong>Items:</strong> ${order.items}</p>
+        <p><strong>Total:</strong> ₹${order.total}</p>
+        <p><strong>Payment Method:</strong> ${order.payment_method}</p>
+        <p><strong>Delivery Date:</strong> ${order.delivery_date}</p>
+      `;
+      popup.style.display = 'block';
+    }
+  </script>
+</body>
+</html>

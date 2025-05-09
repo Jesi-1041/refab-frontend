@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Customize Your Bag – ReFab</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+
+
+  <!-- Eco-Chic Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ─────────────────────────────────────────────────────────────
+       ReFab Theme – Customize Page
+    ───────────────────────────────────────────────────────────── */
+
+    /* Base Setup */
+    body#refab {
+      background: url('boutiquebg.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Poppins', sans-serif;
+      margin: 0; padding: 0;
+      color: #333;
+      height: 100vh;  
+     
+      
+    }
+
+    h1, h2, h3 {
+  font-family: 'Playfair Display', serif;
+  color: #4f622e;                 /* Deep Red for headings */
+}
+
+    /* Navbar */
+    header {
+     
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  padding: 5px 20px;
+  
+  overflow: visible; /* Allow content (logo) to exceed */
+  height: 80px;
+    }
+    .logo img {
+    padding-top: 30px;
+    height: 150px; /* Adjust as needed */
+    width: 150px;
+    position: relative;
+   
+    
+}
+nav {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+nav ul {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+  padding: 0;
+  gap: 2rem;
+}
+nav ul li {
+  margin-left: 0;
+}
+nav ul li a {
+  color: #FFF;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.4rem;
+}
+
+    /* Customize Form Section */
+    .form-section {
+      padding: 3rem 1rem;
+    }
+    .form-container {
+      width: 90%;
+      max-width: 700px;
+      background-color: rgba(222, 205, 180, 0.85); /* Soft beige with transparency */
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(3px); /* For a frosted-glass effect */
+      margin: 0 auto;
+    
+     
+    }
+    .form-container h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      color: #7B1E1E; /* Deep Burgundy */
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Form Fields */
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: black;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="date"],
+    select,
+    textarea,
+    input[type="file"] {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 15px;
+      box-sizing: border-box;
+      background: #fff;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    /* Submit Button */
+    .btn {
+      display: block;
+      width: 100%;
+      background-color: #556B2F;
+      color: #fff;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .btn:hover {
+      background-color: #800000;
+    }
+/* Form Step Container */
+.form-step {
+  display: none;
+}
+.form-step.active {
+  display: block;
+}
+
+/* Step Navigation Buttons */
+.form-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.form-nav button {
+  padding: 12px 20px;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #556B2F;
+  color: #fff;
+  transition: background-color 0.3s;
+}
+.form-nav button:hover {
+  background-color: #800000;
+}
+
+/* "Previous" button styling */
+.form-nav button:first-child {
+  background-color: #556B2F;
+  color: #fff;
+}
+.form-nav button:first-child:hover {
+  background-color: #800000;
+}
+   
+    /* Responsive */
+    @media (max-width: 600px) {
+      .form-container {
+        padding: 20px;
+      }
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      nav ul {
+        flex-wrap: wrap;
+        margin-top: 10px;
+      }
+      nav ul li {
+        margin: 0 10px 5px 0;
+      }
+    }
+  </style>
+</head>
+<body id="refab">
+
+  <!-- Navbar -->
+  <header>
+    <div class="logo">
+      <img src="logo.png" alt="ReFab Logo">
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+    <li><a href="index.html#about">About Us</a></li>
+    <li><a href="index.html#bags">Bags</a></li>
+    <li><a href="index.html#customize">Customize</a></li>
+    <li><a href="cart.html">Cart</a></li>
+<!-- <li><a href="orders.html">Orders</a></li>  -->
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Customize Form Section -->
+  <section class="form-section">
+    <div class="form-container">
+      <h2>Customize Your Bag</h2>
+      <form id="custom-form" action="https://refab-backend.onrender.com/api/custom-order" method="POST" onsubmit="submitCustomOrder(event)" enctype="multipart/form-data">
+  
+        <!-- Step 1: Basic Information -->
+        <div class="form-step" style="display: block;">
+          <label for="name">NAME:</label>
+          <input type="text" id="name" name="name" placeholder="Enter your name" required>
+          
+          <label for="email">EMAIL ADDRESS:</label>
+          <input type="email" id="email" name="email" placeholder="Enter your email" required>
+          
+          <label for="phone">PHONE NUMBER (Optional):</label>
+          <input type="text" id="phone" placeholder="Enter your phone number (optional)" name="phone">
+          
+          <div class="form-nav">
+            <button type="button" onclick="nextStep()">Next</button>
+          </div>
+        </div>
+        
+        <!-- Step 2: Fabric/Clothing Details -->
+        <div class="form-step" style="display: none;">
+          <label for="clothingType">What type of clothing are you sending us?</label>
+          <select id="clothingType" name="clothingType" required>
+            <option value="">Select</option>
+            <option value="Kurti/Dress">Old Kurti / Dress</option>
+            <option value="Shirt">Shirt</option>
+            <option value="Saree/Dupatta">Saree / Dupatta</option>
+            <option value="Jeans/Pants">Jeans / Pants</option>
+            <option value="Other">Other</option>
+          </select>
+          
+          <label for="fabricType">Fabric Type (if known):</label>
+          <select id="fabricType" name="fabricType" required>
+            <option value="">Select</option>
+            <option value="Cotton">Cotton</option>
+            <option value="Linen">Linen</option>
+            <option value="Denim">Denim</option>
+            <option value="Rayon">Rayon</option>
+            <option value="Mixed">Mixed / Not sure</option>
+          </select>
+         
+          <div class="form-nav">
+            <button type="button" onclick="prevStep()">Previous</button>
+            <button type="button" onclick="nextStep()">Next</button>
+          </div>
+        </div>
+        
+        <!-- Step 3: Product Preferences -->
+        <div class="form-step" style="display: none;">
+          <label for="productType">What would you like us to make from your fabric?</label>
+          <select id="productType" name="productType" required>
+            <option value="">Select</option>
+            <option value="Tote">Tote Bag</option>
+            <option value="Sling">Sling Bag</option>
+            <option value="Pouch">Pouch / Wallet</option>
+            <option value="Hair Accessories">Hair Accessories</option>
+            <option value="Gift Set">Gift Combo Set</option>
+            <option value="Surprise">Surprise Me!</option>
+          </select>
+          
+          <label for="aestheticStyle">Choose your preferred aesthetic/style:</label>
+          <select id="aestheticStyle" name="aestheticStyle" required>
+            <option value="">Select</option>
+            <option value="Elegant">Elegant</option>
+            <option value="Playful">Playful</option>
+            <option value="Minimalist">Minimalist</option>
+            <option value="Bold">Bold</option>
+            <option value="Vintage">Vintage</option>
+            <option value="Surprise">Surprise Me!</option>
+          </select>
+          
+          <label for="features">Would you like to add any of the following features?</label>
+          <div>
+            <input type="checkbox" id="compartments" name="compartments">Small compartments inside
+          </div>
+          <div>
+            <input type="checkbox" id="zipClosure" name="zipClosure"> Zip closure
+          </div>
+          <div>
+            <input type="checkbox" id="magneticButton" name="magneticButton"> Magnetic button
+          </div>
+          <div>
+            <input type="checkbox" id="bowDetail" name="bowDetail"> Bow detail / Embellishments
+          </div>
+          
+          <div class="form-nav">
+            <button type="button" onclick="prevStep()">Previous</button>
+            <button type="button" onclick="nextStep()">Next</button>
+          </div>
+        </div>
+        
+        <!-- Step 4: Additional Customization -->
+        <div class="form-step" style="display: none;">
+          <label for="vision">Describe your vision (or leave it to us!):</label>
+          <textarea id="vision" name="vision" placeholder="Let us know if you have any specific ideas, or leave it up to us to surprise you!"></textarea>
+          
+          <div class="form-nav">
+            <button type="button" onclick="prevStep()">Previous</button>
+            <button type="button" onclick="nextStep()">Next</button>
+          </div>
+        </div>
+        
+        <!-- Step 5: Delivery Details -->
+        <div class="form-step" style="display: none;">
+          <label for="shippingAddress">Shipping Address:</label>
+          <input type="text" id="shippingAddress" name="shippingAddress" placeholder="Enter your full shipping address" required>
+          
+          <label for="deliveryDate">Preferred Delivery Date (Optional):</label>
+          <input type="date" id="deliveryDate" name="deliveryDate">
+          
+          <div class="form-nav">
+            <button type="button" onclick="prevStep()">Previous</button>
+            <button type="button" onclick="nextStep()">Next</button>
+          </div>
+        </div>
+        
+        <!-- Step 6: Upload Old Cloth -->
+        <div class="form-step" style="display: none;">
+          <label for="clothUpload">Upload Old Cloth (optional):</label>
+          <input type="file" id="clothUpload" name="clothUpload" accept="image/*">
+          
+          <div class="form-nav">
+            <button type="button" onclick="prevStep()">Previous</button>
+            <button type="submit" class="btn">Submit Custom Order</button>
+          </div>
+        </div>
+        
+      </form>
+      <div id="confirmationMessage" style="display:none;"></div>
+      
+      
+    </div>
+  </section>
+
+
+  <script>
+    window.addEventListener('DOMContentLoaded', function () {
+      let currentStep = 0;
+      const steps = document.querySelectorAll('.form-step');
+  
+      function showStep(index) {
+        steps.forEach((step, i) => {
+          step.style.display = i === index ? 'block' : 'none';
+        });
+      }
+  
+      function nextStep() {
+        if (currentStep < steps.length - 1) {
+          currentStep++;
+          showStep(currentStep);
+        }
+      }
+  
+      function prevStep() {
+        if (currentStep > 0) {
+          currentStep--;
+          showStep(currentStep);
+        }
+      }
+  
+      window.nextStep = nextStep;
+      window.prevStep = prevStep;
+      showStep(currentStep); // initialize
+  
+      // Attach submit event to form
+      const form = document.getElementById('custom-form');
+      form.addEventListener('submit', submitCustomOrder);
+  
+      function submitCustomOrder(event) {
+        window.submitCustomOrder = submitCustomOrder;
+
+        event.preventDefault(); // Prevent default form submission
+  
+        const formData = new FormData();
+  
+        // Collecting inputs from all steps
+        formData.append('name', document.getElementById('name').value);
+        formData.append('email', document.getElementById('email').value);
+        formData.append('phone', document.getElementById('phone').value);
+        formData.append('clothingType', document.getElementById('clothingType').value);
+        formData.append('fabricType', document.getElementById('fabricType').value);
+        formData.append('productType', document.getElementById('productType').value);
+        formData.append('aestheticStyle', document.getElementById('aestheticStyle').value);
+  
+        // Features - checkboxes
+        const features = [];
+        if (document.getElementById('compartments').checked) features.push('compartments');
+        if (document.getElementById('zipClosure').checked) features.push('zipClosure');
+        if (document.getElementById('magneticButton').checked) features.push('magneticButton');
+        if (document.getElementById('bowDetail').checked) features.push('bowDetail');
+        formData.append('features', JSON.stringify(features));
+  
+        formData.append('vision', document.getElementById('vision').value);
+        formData.append('shippingAddress', document.getElementById('shippingAddress').value);
+        formData.append('deliveryDate', document.getElementById('deliveryDate').value);
+  
+        const clothFile = document.getElementById('clothUpload').files[0];
+        if (clothFile) {
+          formData.append('clothUpload', clothFile);
+        }
+  // Price calculation logic
+let totalPrice = 0;
+
+// Product type base price
+const productType = document.getElementById('productType').value;
+switch (productType) {
+  case 'Tote':
+  case 'Sling':
+  case 'Surprise':
+    totalPrice += 500;
+    break;
+  case 'Pouch':
+  case 'Wallet':
+    totalPrice += 400;
+    break;
+  case 'Hair Accessories':
+  case 'Gift Set':
+    totalPrice += 450; // 👈 Adjust if needed, or use a fixed value
+    break;
+  default:
+    break;
+}
+
+// Customization fee
+totalPrice += 150;
+
+// Features - add price if selected
+if (document.getElementById('compartments').checked) totalPrice += 30;
+if (document.getElementById('zipClosure').checked) totalPrice += 30;
+if (document.getElementById('magneticButton').checked) totalPrice += 30;
+if (document.getElementById('bowDetail').checked) totalPrice += 50;
+
+// Delivery fee
+totalPrice += 100;
+
+// Append to formData
+formData.append('price', totalPrice);
+
+  // Add to cart in localStorage
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const customBag = {
+  name: document.getElementById('name').value,
+  email: document.getElementById('email').value,
+  phone: document.getElementById('phone').value,
+  productType,
+  features,
+  price: totalPrice
+};
+
+      cart.push(customBag);
+      localStorage.setItem('cart', JSON.stringify(cart));
+
+      // Notify & redirect
+      alert(`Custom bag added to cart!\nTotal Price: ₹${totalPrice}`);
+
+      window.location.href = 'cart.html';
+
+        // Send data to backend
+        fetch('https://refab-backend.onrender.com/api/custom-order', {
+          method: 'POST',
+          body: formData,
+        })
+          .then(response => response.json())
+          .then(data => {
+            console.log(data);
+            document.getElementById('confirmationMessage').innerText = '✅ Order submitted successfully!';
+            document.getElementById('confirmationMessage').style.display = 'block';
+            form.reset(); // Optionally reset form
+          })
+          .catch(error => {
+            console.error('Error submitting order:', error);
+            alert('Something went wrong. Please try again.');
+          });
+      }
+    });
+  </script>
+  
+  
+  
+
+</body>
+</html>

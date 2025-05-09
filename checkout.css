@@ -1,0 +1,281 @@
+/* General Styling */
+body {
+  background: url('boutiquebg.jpg') no-repeat center center fixed;
+  background-size: cover;
+  font-family: 'Poppins', sans-serif;
+  margin: 0; padding: 0;
+  color: #333;
+  height: 100vh; 
+  }
+  
+    /* Navbar */
+    header {
+     
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      padding: 5px 20px;
+      
+      overflow: visible; /* Allow content (logo) to exceed */
+      height: 80px;
+    }
+    .logo img {
+      padding-top: 30px;
+      height: 150px; /* Adjust as needed */
+      width: 150px;
+      position: relative;
+
+    }
+  /* Form Section */
+  .form-section {
+    width: 90%;
+    max-width: 600px;
+    margin: 40px auto;
+    background-color: rgba(222, 205, 180, 0.85);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(3px); /* For a frosted-glass effect */
+    margin: 0 auto;
+  }
+  h2{
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    color: #7B1E1E; /* Deep Burgundy */
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Styling the cart details container */
+#cart-details {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+}
+
+#cart-details h3 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+/* Styling the cart items list */
+#cart-items-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+#cart-items-list .cart-item {
+  font-size: 18px;
+  padding: 8px;
+  border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+/* Styling for the cart total */
+#cart-total {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  margin-top: 20px;
+  text-align: right;
+  padding-top: 10px;
+}
+
+/* Additional styling for the total container */
+#cart-total strong {
+  color: #e91e63; /* You can use your theme's color */
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+  #cart-details {
+    padding: 15px;
+  }
+
+  #cart-details h3 {
+    font-size: 20px;
+  }
+
+  #cart-items-list .cart-item {
+    font-size: 16px;
+  }
+
+  #cart-total {
+    font-size: 18px;
+  }
+}
+
+  /* Labels and Inputs */
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: black;
+  }
+  
+  input, textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+    box-sizing: border-box;
+    background: #fff;
+  }
+  
+  textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+  
+  /* Radio Buttons and Payment Options */
+  .payment-options {
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+  }
+  
+  .payment-options label {
+    margin-bottom: 10px;
+    font-weight: normal;
+    color:black;
+  }
+  
+  input[type="radio"] {
+    width:20px;
+    margin-left: 20px ;
+    margin-right: 10px;
+  }
+  
+  .payment-details {
+    margin-top: 15px;
+  }
+  #upi-qr-container {
+    background-color: #f9f9f9;
+    border: 2px dashed #a1a1a1;
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 10px;
+    text-align: center;
+    animation: fadeIn 0.4s ease-in-out;
+  }
+
+  #upi-qr-container p {
+    margin: 10px 0;
+    font-size: 16px;
+    color: #333;
+  }
+
+  #upi-qr-container img {
+    max-width: 250px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin: 10px 0;
+  }
+
+  #upi-qr-container input[type="checkbox"] {
+    transform: scale(1.2);
+    margin-right: 8px;
+    cursor: pointer;
+  }
+
+  #upi-qr-container label {
+    font-size: 15px;
+    color: #222;
+    display: inline-block;
+    margin-top: 10px;
+  }
+  #upi-screenshot-upload {
+    margin-top: 10px;
+  }
+  #upi-screenshot-upload input {
+    margin-top: 5px;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  /* Submit Button */
+  .btn {
+    display: block;
+    width: 100%;
+    background-color: #556B2F;
+    color: #fff;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .btn:hover {
+    background-color: #800000;
+  }
+  
+  /* Popup */
+  .popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .popup-content {
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .popup h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .popup p {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .popup button {
+    background-color: #556B2F;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .popup button:hover {
+    background-color: #800000;
+  }
+  
+  /* Mobile Responsiveness */
+  @media screen and (max-width: 600px) {
+    .form-section {
+      width: 95%;
+      padding: 15px;
+    }
+  
+    .payment-options {
+      margin-top: 15px;
+    }
+  }
+  

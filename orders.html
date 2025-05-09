@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Your Orders – ReFab</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <style>
+    body#refab {
+      background-color: #FFF9F0;
+      font-family: 'Poppins', sans-serif;
+      margin: 0; padding: 0;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    h1, h2, h3 {
+  font-family: 'Playfair Display', serif;
+  color: #556B2F;                 /* Deep Red for headings */
+}
+
+    /* Navbar */
+    header {
+      background-color: #698a28;      /* Fresh Green */
+  
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  padding: 5px 20px;
+  
+  overflow: visible; /* Allow content (logo) to exceed */
+  height: 80px;
+    }
+    .logo img {
+    padding-top: 10px;
+    height: 120px; /* Adjust as needed */
+    width: 120px;
+    position: relative;
+   
+    
+}
+nav {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+nav ul {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+  padding: 0;
+  gap: 2rem;
+}
+nav ul li {
+  margin-left: 0;
+}
+nav ul li a {
+  color: #FFF;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.4rem;
+}
+
+  </style>
+</head>
+<body id="refab">
+
+  <!-- Navbar -->
+<header>
+    <div class="logo">
+      <img src="logo.png" alt="ReFab Logo">
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+    <li><a href="index.html#about">About Us</a></li>
+    <li><a href="index.html#bags">Bags</a></li>
+    <li><a href="index.html#customize">Customize</a></li>
+    <li><a href="cart.html">Cart</a></li>
+    <li><a href="orders.html">Orders</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="form-section">
+    <div class="form-container">
+      <h2>Your Orders</h2>
+      <div id="orders-list">
+        <!-- Orders will be injected here -->
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 ReFab. All rights reserved.</p>
+  </footer>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const orders = JSON.parse(localStorage.getItem('orders')) || [];
+    const container = document.getElementById('orders-list');
+    
+    console.log('🛒 Orders Loaded:', orders); // Add this line to debug
+
+    if (!orders.length) {
+      container.innerHTML = '<p>No orders yet.</p>';
+      return;
+    }
+
+    orders.forEach(o => {
+      const div = document.createElement('div');
+      div.className = 'order-card';
+      div.innerHTML = `
+        <h3>Order #${o.orderId || 'Unknown'}</h3>
+        <p><strong>Items:</strong> ${o.items?.map(i => i.bagType || i.name || 'Unknown Item').join(', ')}</p>
+        <p><strong>Total:</strong> ₹${o.total || '0'}</p>
+        <p><strong>Payment:</strong> ${o.method || 'Unknown'} ${o.txnRef ? `(${o.txnRef})` : ''}</p>
+        <p><strong>Delivery:</strong> ${o.deliveryDate || 'N/A'}</p>
+        <p><strong>Ship To:</strong> 
+          ${(o.shipping?.address || 'Address not provided')}, 
+          ${(o.shipping?.city || '')}, 
+          ${(o.shipping?.state || '')} - 
+          ${(o.shipping?.pincode || '')}
+        </p>
+        <hr>
+      `;
+      container.appendChild(div);
+    });
+  });
+  </script>
+
+  <style>
+    /* Order Cards */
+    .order-card {
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .order-card h3 {
+      margin-top: 0;
+      color: #7B1E1E;
+    }
+    .order-card p {
+      margin: 6px 0;
+      font-size: 15px;
+    }
+  </style>
+
+</body>
+</html>
