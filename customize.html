@@ -359,162 +359,157 @@ nav ul li a {
   </section>
 
 
-  <script>
-    window.addEventListener('DOMContentLoaded', function () {
-      let currentStep = 0;
-      const steps = document.querySelectorAll('.form-step');
-  
-      function showStep(index) {
-        steps.forEach((step, i) => {
-          step.style.display = i === index ? 'block' : 'none';
-        });
-      }
-  
-      function nextStep() {
-        if (currentStep < steps.length - 1) {
-          currentStep++;
-          showStep(currentStep);
-        }
-      }
-  
-      function prevStep() {
-        if (currentStep > 0) {
-          currentStep--;
-          showStep(currentStep);
-        }
-      }
-  
-      window.nextStep = nextStep;
-      window.prevStep = prevStep;
-      showStep(currentStep); // initialize
+<script>
+  window.addEventListener('DOMContentLoaded', function () {
+    let currentStep = 0;
+    const steps = document.querySelectorAll('.form-step');
+
+    function showStep(index) {
+      steps.forEach((step, i) => {
+        step.style.display = i === index ? 'block' : 'none';
+      });
     }
-      // Attach submit event to form
-      const form = document.getElementById('custom-form');
-      form.addEventListener('submit', submitCustomOrder);
-  
-      function submitCustomOrder(event) {
-        window.submitCustomOrder = submitCustomOrder;
 
-        event.preventDefault(); // Prevent default form submission
-  
-        const formData = new FormData();
-  
-        // Collecting inputs from all steps
-        formData.append('name', document.getElementById('name').value);
-        formData.append('email', document.getElementById('email').value);
-        formData.append('phone', document.getElementById('phone').value);
-        formData.append('clothingType', document.getElementById('clothingType').value);
-        formData.append('fabricType', document.getElementById('fabricType').value);
-        formData.append('productType', document.getElementById('productType').value);
-        formData.append('aestheticStyle', document.getElementById('aestheticStyle').value);
-  
-        // Features - checkboxes
-        const features = [];
-        if (document.getElementById('compartments').checked) features.push('compartments');
-        if (document.getElementById('zipClosure').checked) features.push('zipClosure');
-        if (document.getElementById('magneticButton').checked) features.push('magneticButton');
-        if (document.getElementById('bowDetail').checked) features.push('bowDetail');
-        formData.append('features', JSON.stringify(features));
-  
-        formData.append('vision', document.getElementById('vision').value);
-        formData.append('shippingAddress', document.getElementById('shippingAddress').value);
-        formData.append('deliveryDate', document.getElementById('deliveryDate').value);
-  
-        const clothFile = document.getElementById('clothUpload').files[0];
-        if (clothFile) {
-          formData.append('clothUpload', clothFile);
-        }
+    function nextStep() {
+      if (currentStep < steps.length - 1) {
+        currentStep++;
+        showStep(currentStep);
       }
-  // Price calculation logic
-let totalPrice = 0;
-
-// Product type base price
-const productType = document.getElementById('productType').value;
-switch (productType) {
-  case 'Tote':
-  case 'Sling':
-  case 'Surprise':
-    totalPrice += 500;
-    break;
-  case 'Pouch':
-  case 'Wallet':
-    totalPrice += 400;
-    break;
-  case 'Hair Accessories':
-  case 'Gift Set':
-    totalPrice += 450; // 👈 Adjust if needed, or use a fixed value
-    break;
-  default:
-    break;
-}
-
-// Customization fee
-totalPrice += 150;
-
-// Features - add price if selected
-if (document.getElementById('compartments').checked) totalPrice += 30;
-if (document.getElementById('zipClosure').checked) totalPrice += 30;
-if (document.getElementById('magneticButton').checked) totalPrice += 30;
-if (document.getElementById('bowDetail').checked) totalPrice += 50;
-
-// Delivery fee
-totalPrice += 100;
-
-// Append to formData
-formData.append('price', totalPrice);
-
-  // Add to cart in localStorage
-  const cart = JSON.parse(localStorage.getItem('cart')) || [];
-  const customBag = {
-  name: document.getElementById('name').value,
-  email: document.getElementById('email').value,
-  phone: document.getElementById('phone').value,
-  productType,
-  features,
-  price: totalPrice
-};
-
-      cart.push(customBag);
-      localStorage.setItem('cart', JSON.stringify(cart));
-
-      // Notify & redirect
-      alert(`Custom bag added to cart!\nTotal Price: ₹${totalPrice}`);
-
-      window.location.href = 'cart.html';
-
-        // Send data to backend
-// Send data to backend
-fetch('https://refab-backend.onrender.com/api/custom-order', {
-  method: 'POST',
-  body: formData,
-})
-  .then(response => {
-    // Check if the response status is OK (200 range)
-    if (!response.ok) {
-      throw new Error('Failed to submit the order, please try again later.');
     }
-    return response.json(); // Parse the response as JSON
-  })
-  .then(data => {
-    console.log(data); // Log the data for debugging
 
-    // Check if the backend has sent a success message
-    if (data.message === 'Order received and saved!') {
-      document.getElementById('confirmationMessage').innerText = '✅ Order submitted successfully!';
-      document.getElementById('confirmationMessage').style.display = 'block';
-      form.reset(); // Optionally reset form
-    } else {
-      throw new Error('Unexpected response from the backend.');
+    function prevStep() {
+      if (currentStep > 0) {
+        currentStep--;
+        showStep(currentStep);
+      }
     }
-  })
-  .catch(error => {
-    console.error('Error submitting order:', error);
-    alert('Something went wrong. Please try again.');
+
+    window.nextStep = nextStep;
+    window.prevStep = prevStep;
+    showStep(currentStep); // initialize
   });
 
-  </script>
-  
-  
+  // Attach submit event to form
+  const form = document.getElementById('custom-form');
+  form.addEventListener('submit', submitCustomOrder);
+
+  function submitCustomOrder(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    const formData = new FormData();
+
+    // Collecting inputs from all steps
+    formData.append('name', document.getElementById('name').value);
+    formData.append('email', document.getElementById('email').value);
+    formData.append('phone', document.getElementById('phone').value);
+    formData.append('clothingType', document.getElementById('clothingType').value);
+    formData.append('fabricType', document.getElementById('fabricType').value);
+    formData.append('productType', document.getElementById('productType').value);
+    formData.append('aestheticStyle', document.getElementById('aestheticStyle').value);
+
+    // Features - checkboxes
+    const features = [];
+    if (document.getElementById('compartments').checked) features.push('compartments');
+    if (document.getElementById('zipClosure').checked) features.push('zipClosure');
+    if (document.getElementById('magneticButton').checked) features.push('magneticButton');
+    if (document.getElementById('bowDetail').checked) features.push('bowDetail');
+    formData.append('features', JSON.stringify(features));
+
+    formData.append('vision', document.getElementById('vision').value);
+    formData.append('shippingAddress', document.getElementById('shippingAddress').value);
+    formData.append('deliveryDate', document.getElementById('deliveryDate').value);
+
+    const clothFile = document.getElementById('clothUpload').files[0];
+    if (clothFile) {
+      formData.append('clothUpload', clothFile);
+    }
+
+    // Price calculation logic
+    let totalPrice = 0;
+
+    // Product type base price
+    const productType = document.getElementById('productType').value;
+    switch (productType) {
+      case 'Tote':
+      case 'Sling':
+      case 'Surprise':
+        totalPrice += 500;
+        break;
+      case 'Pouch':
+      case 'Wallet':
+        totalPrice += 400;
+        break;
+      case 'Hair Accessories':
+      case 'Gift Set':
+        totalPrice += 450; // 👈 Adjust if needed, or use a fixed value
+        break;
+      default:
+        break;
+    }
+
+    // Customization fee
+    totalPrice += 150;
+
+    // Features - add price if selected
+    if (document.getElementById('compartments').checked) totalPrice += 30;
+    if (document.getElementById('zipClosure').checked) totalPrice += 30;
+    if (document.getElementById('magneticButton').checked) totalPrice += 30;
+    if (document.getElementById('bowDetail').checked) totalPrice += 50;
+
+    // Delivery fee
+    totalPrice += 100;
+
+    // Append price to formData
+    formData.append('price', totalPrice);
+
+    // Add to cart in localStorage
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const customBag = {
+      name: document.getElementById('name').value,
+      email: document.getElementById('email').value,
+      phone: document.getElementById('phone').value,
+      productType,
+      features,
+      price: totalPrice
+    };
+
+    cart.push(customBag);
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    // Notify & redirect
+    alert(`Custom bag added to cart!\nTotal Price: ₹${totalPrice}`);
+    window.location.href = 'cart.html';
+
+    // Send data to backend
+    fetch('https://refab-backend.onrender.com/api/custom-order', {
+      method: 'POST',
+      body: formData,
+    })
+      .then(response => {
+        // Check if the response status is OK (200 range)
+        if (!response.ok) {
+          throw new Error('Failed to submit the order, please try again later.');
+        }
+        return response.json(); // Parse the response as JSON
+      })
+      .then(data => {
+        console.log(data); // Log the data for debugging
+
+        // Check if the backend has sent a success message
+        if (data.message === 'Order received and saved!') {
+          document.getElementById('confirmationMessage').innerText = '✅ Order submitted successfully!';
+          document.getElementById('confirmationMessage').style.display = 'block';
+          form.reset(); // Optionally reset form
+        } else {
+          throw new Error('Unexpected response from the backend.');
+        }
+      })
+      .catch(error => {
+        console.error('Error submitting order:', error);
+        alert('Something went wrong. Please try again.');
+      });
+  }
+</script>
   
 
 </body>
