@@ -234,11 +234,11 @@
     const emailParams = {
       name: order.name,
       order_id: order.order_id,
-      items_ordered: order.items,
-      total_amount: order.total,
+      items_ordered: order.items_ordered,
+      total_amount: order.total_amount,
       payment_method: order.payment_method,
       delivery_date: order.delivery_date,
-      to_email: order.email
+      to_email: order.to_email
     };
 
     emailjs.send('service_2pwos7k', 'template_cuh80pu', emailParams)
