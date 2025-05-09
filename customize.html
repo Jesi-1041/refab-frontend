@@ -500,14 +500,8 @@ nav ul li a {
           document.getElementById('confirmationMessage').innerText = '✅ Order submitted successfully!';
           document.getElementById('confirmationMessage').style.display = 'block';
           form.reset(); // Optionally reset form
-        } else {
-          throw new Error('Unexpected response from the backend.');
-        }
-      })
-      .catch(error => {
-        console.error('Error submitting order:', error);
-        alert('Something went wrong. Please try again.');
-      });
+        } 
+      })  
   }
 </script>
   
