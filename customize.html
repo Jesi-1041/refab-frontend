@@ -278,8 +278,7 @@ nav ul li a {
             <option value="">Select</option>
             <option value="Tote">Tote Bag</option>
             <option value="Sling">Sling Bag</option>
-            <option value="Pouch">Pouch / Wallet</option>
-            <option value="Hair Accessories">Hair Accessories</option>
+            <option value="Pouch">Pouch / Wallet</option>            
             <option value="Gift Set">Gift Combo Set</option>
             <option value="Surprise">Surprise Me!</option>
           </select>
@@ -431,15 +430,16 @@ nav ul li a {
     const productType = document.getElementById('productType').value;
     switch (productType) {
       case 'Tote':
-      case 'Sling':
-      case 'Surprise':
-        totalPrice += 500;
+      case 'Sling':      
+        totalPrice += 350;
         break;
+      case 'Surprise':
+        totalPrice += 0;
       case 'Pouch':
       case 'Wallet':
-        totalPrice += 400;
+        totalPrice += 60;
         break;
-      case 'Hair Accessories':
+
       case 'Gift Set':
         totalPrice += 450; // 👈 Adjust if needed, or use a fixed value
         break;
@@ -448,7 +448,7 @@ nav ul li a {
     }
 
     // Customization fee
-    totalPrice += 150;
+    totalPrice += 100;
 
     // Features - add price if selected
     if (document.getElementById('compartments').checked) totalPrice += 30;
