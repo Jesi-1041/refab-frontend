@@ -231,13 +231,13 @@
   // Send confirmation email via EmailJS
   function sendConfirmationEmail(order) {
     const emailParams = {
-      name: order.name,
-      order_id: order.order_id,
-      items_ordered: order.items_ordered,
-      total_amount: order.total_amount,
-      payment_method: order.payment_method,
-      delivery_date: order.delivery_date,
-      to_email: order.to_email
+    name: order.name,
+    order_id: order.order_id,
+    items_ordered: order.items,         // ✅ matches template
+    total_amount: order.total,          // ✅ matches template
+    payment_method: order.payment_method,
+    delivery_date: order.delivery_date,
+    to_email: order.email 
     };
 
     emailjs.send('service_2pwos7k', 'template_cuh80pu', emailParams)
